@@ -21,22 +21,25 @@ def split(astring, splitter):
       when it is not passed anything for the splitter -- you do
       not need to implemented that.
     """
-    string_until_split = ""
-    current_index = 0
-    list_of_splits = []
 
-    while astring:
-        if astring[current_index] != splitter[0]:
-            string_until_split += astring[current_index]
-            current_index += 1
+    index = 0
+    out = []
+
+    while index <= len(astring):
+        current_index = index
+        index = astring.find(splitter, index)
+        if index != -1:
+            out.append(astring[current_index:index])
+            index += len(splitter)
         else:
-            list_of_splits.append(string_until_split)
-            astring = astring[(current_index + len(splitter)):]
+            out.append(astring[current_index:])
+            break
 
-    return list_of_splits
+    return out
 
 
 if __name__ == '__main__':
     import doctest
     if doctest.testmod().failed == 0:
         print "\n*** ALL TESTS PASSED. FINE SPLITTING!\n"
+
